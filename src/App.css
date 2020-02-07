@@ -32,14 +32,19 @@
   display: block;
   height: -webkit-fill-available;
   max-height: 350px;
+  padding:4px;
+  background-color: lavender;
 }
 
 #preview {
   width: 640px;
-  height:500px;
+  min-height: 500px;
+  height: auto;
   display: block;
+  text-align: left;
   margin: auto;
   margin-top: 20px;
-
+  padding: 4px;
+  background-color: lightcyan;
   border: 1px solid grey;
 }

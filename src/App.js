@@ -3,18 +3,41 @@ import React from 'react';
 import marked from'marked';
 
 import './App.css';
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: true,
-  smartLists: true,
-  smartypants: false
-});
 
-const initialContent = '# Welcome to my React Markdown Previewer!';
+
+const singleCode = "`<div></div>`";
+const start = "```";
+const end = "```";
+const code = `
+// this is code
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == 5 && lastLine == 6) {
+    return 11;
+  }
+}
+`
+const multilineCode = start + code + end;
+
+const header = `# Welcome to my React Markdown Previewer!
+
+## This is a sub-heading...
+
+[links](https://www.freecodecamp.com)
+
+1. And there are numbererd lists too. 
+1. Use just 1s if you want!
+
+**bold**
+
+> Block Quotes!
+
+${singleCode}
+
+${multilineCode}
+
+![React Logo w/ Text](https://goo.gl/Umyytc)
+`
+
 
 class App extends React.Component {
 
@@ -25,12 +48,24 @@ class App extends React.Component {
       previewContent: ''
     }
     this.onChange = this.onChange.bind(this);
- 
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: true,
+      smartLists: true,
+      smartypants: false
+    });
   }
 
   componentDidMount(){
+    let mar = marked(header);
+
     this.setState({
-      content: initialContent
+      content: header,
+      previewContent: mar
     })
   }
 
@@ -54,7 +89,6 @@ class App extends React.Component {
           <textarea id="editor" onChange={this.onChange} value={content}/>
         </div>
         
-          
         <div id="preview" dangerouslySetInnerHTML={{ __html: previewContent }} />
 
       </div>
